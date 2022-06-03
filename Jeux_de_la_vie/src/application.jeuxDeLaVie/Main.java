@@ -1,5 +1,7 @@
 package application.jeuxDeLaVie;
 
+import java.io.File;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -11,6 +13,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -38,10 +42,11 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         try {
             VBox root = new VBox();
-            Scene scene = new Scene(root,601,601 + 100);
+            //taille scene TODO
+            Scene scene = new Scene(root,1200,900);
 
             //fond:
-            root.setBackground(new Background(new BackgroundFill(Color.rgb(20, 90, 200), null, null)));
+            root.setBackground(new Background(new BackgroundFill(Color.rgb(25, 58, 77), null, null)));
 
             //plateau:
             GridPane plateau = new GridPane();
@@ -67,9 +72,11 @@ public class Main extends Application {
 
 
 
-            //gestion des règles du jeu:
+            //gestion des règlages du jeu:
             Text texte1 = new Text("Nombre de voisins pour survivre:");
             Text texte2 = new Text("Nombre de voisins pour naître:");
+            texte2.setFill(Color.rgb(255,255,255));
+            texte1.setFill(Color.rgb(255,255,255));
             HBox boite1 = new HBox();
             boite1.getChildren().addAll(texte1, texte2);
             boite1.setPrefHeight(20);
@@ -89,7 +96,7 @@ public class Main extends Application {
             for(int i=0; i < 9 ; i++){
                 tabsurvie[i] = new CheckBox(String.valueOf(i));
                 tabsurvie[i].setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, 14));
-                tabsurvie[i].setTextFill(Color.BLACK);
+                tabsurvie[i].setTextFill(Color.WHITE);
                 boite21.getChildren().add(tabsurvie[i]);
             }
             tabsurvie[2].setSelected(true);
@@ -100,7 +107,7 @@ public class Main extends Application {
             for(int i=0; i < 9 ; i++){
                 tabnaissance[i] = new CheckBox(String.valueOf(i));
                 tabnaissance[i].setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, 14));
-                tabnaissance[i].setTextFill(Color.BLACK);
+                tabnaissance[i].setTextFill(Color.WHITE);
                 boite22.getChildren().add(tabnaissance[i]);
             }
             tabnaissance[3].setSelected(true);
@@ -108,26 +115,40 @@ public class Main extends Application {
 
             HBox boite3 = new HBox();
             //bouton play pause:
+            
+            File play = new File("Z:/Ok.png");
+            String localUrlPlay = play.toURI().toURL().toString();
+            Image imagePlay = new Image(localUrlPlay);
+            final ImageView iconPlay = new ImageView(imagePlay);
+            
+            File pause = new File("Z:/pause.png");
+            String localUrlPause = pause.toURI().toURL().toString();
+            Image imagePause = new Image(localUrlPause);
+            final ImageView iconPause = new ImageView(imagePause);
 
-            Button bouton = new Button("Start");
+            Button bouton = new Button();
+            //final Image image = new Image(getClass().getResource("Ok.png").toExternalForm());  
+            bouton.setGraphic(iconPlay);
+            bouton.setBackground(new Background(new BackgroundFill(Color.rgb(255, 255, 255), null, null)));
             boite3.getChildren().add(bouton);
             root.getChildren().addAll(boite3);
-            bouton.setPrefSize(200, 50);
+            bouton.setPrefSize(50, 50);
 
             execution = false;
 
             bouton.setOnAction(e ->{
                 if(!execution){
                     //lancement animation
-                    bouton.setText("Stop");
+                	bouton.setGraphic(iconPause);
                     execution = true;
 
                 }else{
                     //arrêt animation
-                    bouton.setText("Start");
+                	bouton.setGraphic(iconPlay);
                     execution = false;
 
                 }
+                
             });
 
 
