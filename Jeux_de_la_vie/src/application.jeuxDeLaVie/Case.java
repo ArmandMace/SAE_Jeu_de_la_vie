@@ -30,7 +30,7 @@ public class Case extends Parent{
 
         //fond:
         Rectangle fond = new Rectangle(0,0,14,14);
-        fond.setFill(Color.rgb(0, 0, 50));
+        fond.setFill(Color.rgb(255, 255, 255));
         fond.heightProperty().bind(h);
         fond.widthProperty().bind(l);
 
@@ -40,7 +40,7 @@ public class Case extends Parent{
         //cellule:
         occupee = false;
         cell = new Circle(7,7,7);
-        cell.setFill(Color.ORANGERED);
+        cell.setFill(Color.GRAY);
         cell.radiusProperty().bind(h.divide(2));
         cell.centerXProperty().bind(cell.radiusProperty());
         cell.centerYProperty().bind(cell.radiusProperty());
