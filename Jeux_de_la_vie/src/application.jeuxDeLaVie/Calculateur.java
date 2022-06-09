@@ -19,6 +19,7 @@ public class Calculateur extends Thread{
     }
 
     public synchronized void run(){
+    	
 
         while(partieEnCours){
 
@@ -37,33 +38,33 @@ public class Calculateur extends Thread{
 //			System.out.println("calculs");
 
                 //calculs:
-                for(int i = 0 ; i < 40 ; i++){
-                    for (int j = 0 ; j < 40 ; j++){
+                for(int i = 0 ; i < Main.taille ; i++){
+                    for (int j = 0 ; j < Main.taille ; j++){
 
                         int voisins = 0;
 
-                        if(tab[(i-1+40)%40][(j-1+40)%40].isOccupee())
+                        if(tab[(i-1+Main.taille)%Main.taille][(j-1+Main.taille)%Main.taille].isOccupee())
                             voisins++;
 
-                        if(tab[i][(j-1+40)%40].isOccupee())
+                        if(tab[i][(j-1+Main.taille)%Main.taille].isOccupee())
                             voisins++;
 
-                        if(tab[(i+1)%40][(j-1+40)%40].isOccupee())
+                        if(tab[(i+1)%Main.taille][(j-1+Main.taille)%Main.taille].isOccupee())
                             voisins++;
 
-                        if(tab[(i+1)%40][j].isOccupee())
+                        if(tab[(i+1)%Main.taille][j].isOccupee())
                             voisins++;
 
-                        if(tab[(i+1)%40][(j+1)%40].isOccupee())
+                        if(tab[(i+1)%Main.taille][(j+1)%Main.taille].isOccupee())
                             voisins++;
 
-                        if(tab[i][(j+1)%40].isOccupee())
+                        if(tab[i][(j+1)%Main.taille].isOccupee())
                             voisins++;
 
-                        if(tab[(i-1+40)%40][(j+1)%40].isOccupee())
+                        if(tab[(i-1+Main.taille)%Main.taille][(j+1)%Main.taille].isOccupee())
                             voisins++;
 
-                        if(tab[(i-1+40)%40][j].isOccupee())
+                        if(tab[(i-1+Main.taille)%Main.taille][j].isOccupee())
                             voisins++;
 
                         if(tab[i][j].isOccupee()){
