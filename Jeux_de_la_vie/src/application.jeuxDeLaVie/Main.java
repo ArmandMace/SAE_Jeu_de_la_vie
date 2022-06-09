@@ -37,13 +37,15 @@ public class Main extends Application {
 
     public static Timeline actualisation;
     public static int[][] infoPlateau;
+    
+    public static int taille = 50;
 
     @Override
     public void start(Stage primaryStage) {
         try {
             VBox root = new VBox();
             //taille scene TODO
-            Scene scene = new Scene(root,1200,900);
+            Scene scene = new Scene(root,950,950);
 
             //fond:
             root.setBackground(new Background(new BackgroundFill(Color.rgb(25, 58, 77), null, null)));
@@ -52,18 +54,21 @@ public class Main extends Application {
             GridPane plateau = new GridPane();
             plateau.setVgap(1);
             plateau.setHgap(1);
-            plateau.setPadding(new Insets(1,0,0,1));
+            // h  x  b  g
+            plateau.setPadding(new Insets(10,10,0,10));
             root.getChildren().add(plateau);
+            
+            
 
 
-            Case[][] plateauTab = new Case[40][40];
-            infoPlateau = new int[40][40];
+            Case[][] plateauTab = new Case[taille][taille];
+            infoPlateau = new int[taille][taille];
 
-            for(int i = 0 ; i < 40 ; i++){
-                for(int j = 0 ; j < 40 ; j++){
+            for(int i = 0 ; i < taille ; i++){
+                for(int j = 0 ; j < taille ; j++){
                     plateauTab[i][j] = new Case(i, j);
                     plateau.add(plateauTab[i][j], i, j);
-                    plateauTab[i][j].HProperty().bind(scene.heightProperty().subtract(41 + 100).divide(40));
+                    plateauTab[i][j].HProperty().bind(scene.heightProperty().subtract((taille + 1) + 100).divide(taille));
                 }
             }
 
@@ -78,9 +83,10 @@ public class Main extends Application {
             texte2.setFill(Color.rgb(255,255,255));
             texte1.setFill(Color.rgb(255,255,255));
             HBox boite1 = new HBox();
-            boite1.getChildren().addAll(texte1, texte2);
+            boite1.getChildren().addAll(texte1);
             boite1.setPrefHeight(20);
             boite1.setSpacing(30);
+            boite1.setPadding(new Insets(0,10,0,10));
             root.getChildren().add(boite1);
 
             HBox boite2 = new HBox();
@@ -88,7 +94,9 @@ public class Main extends Application {
             boite2.setSpacing(30);
             FlowPane boite21 = new FlowPane();
             FlowPane boite22 = new FlowPane();
-            boite2.getChildren().addAll(boite21, boite22);
+            boite2.getChildren().addAll(texte2, boite22);
+            boite1.getChildren().addAll(boite21);
+            boite2.setPadding(new Insets(0,10,0,10));
             root.getChildren().add(boite2);
 
             //stockage des valeurs:
@@ -116,12 +124,12 @@ public class Main extends Application {
             HBox boite3 = new HBox();
             //bouton play pause:
             
-            File play = new File("Z:/Ok.png");
+            File play = new File("E:/icon/play.png");
             String localUrlPlay = play.toURI().toURL().toString();
             Image imagePlay = new Image(localUrlPlay);
             final ImageView iconPlay = new ImageView(imagePlay);
             
-            File pause = new File("Z:/pause.png");
+            File pause = new File("E:/icon/pause.png");
             String localUrlPause = pause.toURI().toURL().toString();
             Image imagePause = new Image(localUrlPause);
             final ImageView iconPause = new ImageView(imagePause);
@@ -157,8 +165,8 @@ public class Main extends Application {
             boite3.getChildren().add(0,boutonEff);
             boutonEff.setPrefSize(200, 50);
             boutonEff.setOnAction(e ->{
-                for(int i = 0 ; i < 40 ; i++){
-                    for(int j = 0 ; j < 40 ; j++){
+                for(int i = 0 ; i < taille ; i++){
+                    for(int j = 0 ; j < taille ; j++){
                         infoPlateau[i][j] = 0;
                         plateauTab[i][j].deces();
                     }
@@ -181,7 +189,6 @@ public class Main extends Application {
 
 
 
-
             //gestion layout:
             primaryStage.heightProperty().addListener(e -> {
                 primaryStage.setWidth(primaryStage.getHeight() - 100);
@@ -189,10 +196,10 @@ public class Main extends Application {
 
             primaryStage.widthProperty().addListener(e -> {
                 primaryStage.setHeight(primaryStage.getWidth() + 100);
-                texte1.setFont(Font.font("Comic Sans MS", FontWeight.EXTRA_BOLD, primaryStage.getWidth() / 40));
-                texte2.setFont(Font.font("Comic Sans MS", FontWeight.EXTRA_BOLD, primaryStage.getWidth() / 40));
-                bouton.setFont(Font.font("Comic Sans MS", FontWeight.EXTRA_BOLD, primaryStage.getWidth() / 40));
-                boutonEff.setFont(Font.font("Comic Sans MS", FontWeight.EXTRA_BOLD, primaryStage.getWidth() / 45));
+                texte1.setFont(Font.font("Comic Sans MS", FontWeight.EXTRA_BOLD, primaryStage.getWidth() / 50));
+                texte2.setFont(Font.font("Comic Sans MS", FontWeight.EXTRA_BOLD, primaryStage.getWidth() / 50));
+                bouton.setFont(Font.font("Comic Sans MS", FontWeight.EXTRA_BOLD, primaryStage.getWidth() / 50));
+                boutonEff.setFont(Font.font("Comic Sans MS", FontWeight.EXTRA_BOLD, primaryStage.getWidth() / 55));
             });
 
 
@@ -211,8 +218,8 @@ public class Main extends Application {
 
                     //rafraichissement:
 //					System.out.println("refresh");
-                    for(int i = 0 ; i < 40 ; i++){
-                        for(int j = 0 ; j < 40 ; j++){
+                    for(int i = 0 ; i < taille ; i++){
+                        for(int j = 0 ; j < taille ; j++){
                             if(infoPlateau[i][j] == 1 && !plateauTab[i][j].isOccupee()){
                                 plateauTab[i][j].naissance();
                             }
@@ -245,8 +252,8 @@ public class Main extends Application {
 
                         //rafraichissement:
 //						System.out.println("refresh");
-                        for(int i = 0 ; i < 40 ; i++){
-                            for(int j = 0 ; j < 40 ; j++){
+                        for(int i = 0 ; i < taille ; i++){
+                            for(int j = 0 ; j < taille ; j++){
                                 if(infoPlateau[i][j] == 1 && !plateauTab[i][j].isOccupee()){
                                     plateauTab[i][j].naissance();
                                 }
@@ -273,7 +280,7 @@ public class Main extends Application {
 
 
 
-            primaryStage.setTitle("Game of Life by ROMAINPC");
+            primaryStage.setTitle("Sae jeu de la vie");
             primaryStage.setScene(scene);
             primaryStage.show();
 
@@ -315,4 +322,5 @@ public class Main extends Application {
     public static boolean cliqueDroit() {
         return cliqueDroit;
     }
-}
+    
+    }
