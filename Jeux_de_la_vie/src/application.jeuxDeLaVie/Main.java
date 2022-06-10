@@ -328,7 +328,7 @@ public class Main extends Application {
 				
 			});
 			
-			Button boutonRegle = new Button("Regle");
+			Button boutonRegle = new Button("Regles");
 			boutonRegle.setTextFill(Color.WHITE);
 			boutonRegle.setPrefSize(300, 50);
 			regle.getChildren().add(boutonRetour);
@@ -343,7 +343,7 @@ public class Main extends Application {
 				
 			});
 			
-			Button boutonEx = new Button("Exemple");
+			Button boutonEx = new Button("Exemples");
 			boutonEx.setTextFill(Color.WHITE);
 			boutonEx.setPrefSize(300, 50);
 			exemple.getChildren().add(boutonRetour2);
